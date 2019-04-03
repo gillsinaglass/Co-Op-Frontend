@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { Route, Switch } from 'react-router-dom';
+import "./App.css";
+import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+import logo from "./logo.svg"
 
 class App extends Component {
   render() {
