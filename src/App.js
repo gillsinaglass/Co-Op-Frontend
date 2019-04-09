@@ -1,21 +1,41 @@
 import React, { Component } from "react";
-import { Route, Switch } from 'react-router-dom';
 import "./App.css";
+import NavBar from "./Components/NavBar"
+import Login from './Components/Login'
+import SignUp from './Components/SignUp'
+import ProfilePage from './Containers/ProfilePage'
+import { Route, Switch } from 'react-router-dom';
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
-import logo from "./logo.svg"
-import NavBar from "./Components/NavBar"
+import {getUser} from './redux/actions/user'
 
 class App extends Component {
+
+  componentDidMount(){
+    this.props.getUser()
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <NavBar />
-        </header>
+        <Route path= "/login" component={Login} />
+        <Route path= "/signup" component={SignUp} />
+        {this.props.user.id === undefined? null : <Switch>
+          <Route path= "/profile" component={ProfilePage} />
+        </Switch> }
       </div>
     );
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+  return {
+    getUser: ()=>{dispatch(getUser(1))}
+  }
+}
+
+const mapStateToProps = state =>({
+  user: state.user
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
