@@ -1,27 +1,43 @@
 import React, {Component} from 'react';
-import NavBar from '../Components/NavBar'
+import NavBar from '../Components/NavBar';
+import ProfileCard from "../Components/ProfileCard";
+import CoverImg from "../Components/CoverImage"
 import { connect } from 'react-redux'
+import { Grid, Segment } from 'semantic-ui-react'
 
 
 class ProfilePage extends Component {
-
   render() {
     return (
       <div>
-      <NavBar />
-      <div className="ui card">
-            <img src='//texasbarblog.lexblogplatformtwo.com/files/2011/12/housto-bankruptcy-attorney-adam-schachter1.jpg'/>
-            <h1>{this.props.name}</h1>
-            <h3>{this.props.email}</h3>
+        <div>
+          <NavBar />
         </div>
+        <div>
+        <CoverImg />
         </div>
+      <Grid>
+        <Grid.Row>
+          <Grid.Column width={2}>
+            <Segment><ProfileCard /></Segment>
+          </Grid.Column>
+          <Grid.Column width={13}>
+            <Segment><ProfileCard /></Segment>
+          </Grid.Column>
+       </Grid.Row>
+     </Grid>
+        <div>
+        </div>
+      </div>
       );
     }
 }
 const mapStateToProps = state =>({
   name: state.user.name,
   email: state.user.email,
-  proimage: state.user.profile_picture
+  proimage: state.user.profile_picture,
+  job: state.user.job_title,
+  bio: state.user.user_bio
 })
 
 export default connect(mapStateToProps)(ProfilePage);
