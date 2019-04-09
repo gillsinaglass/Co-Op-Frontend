@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import NavBar from '../Components/NavBar';
 import ProfileCard from "../Components/ProfileCard";
 import CoverImg from "../Components/CoverImage"
+import ProjectHighlights from "./ProjectHiglightCont"
 import { connect } from 'react-redux'
 import { Grid, Segment } from 'semantic-ui-react'
+
 
 
 class ProfilePage extends Component {
@@ -22,7 +24,7 @@ class ProfilePage extends Component {
             <Segment><ProfileCard /></Segment>
           </Grid.Column>
           <Grid.Column width={13}>
-            <Segment><ProfileCard /></Segment>
+            <Segment><ProjectHighlights /></Segment>
           </Grid.Column>
        </Grid.Row>
      </Grid>

@@ -37,8 +37,8 @@ const mapStateToProps = state =>({
   job: state.user.job_title,
   bio: state.user.user_bio,
   teams: state.user.teams,
-  collabs: state.user.collaborations,
-  activeCollabs: state.user.collaborations.filter(c=>c.status==="Active")
+  collabs: state.user.collaborations_uniq,
+  activeCollabs: state.user.collaborations_uniq.filter(c=>c.status==="Active")
 })
 
 export default connect(mapStateToProps)(ProfileCard);
