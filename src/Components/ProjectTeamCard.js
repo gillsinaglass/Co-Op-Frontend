@@ -2,16 +2,14 @@ import React from "react";
 import { Card, Image } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
-const HighlightCard = (props) => {
+const ProjectTeamCard = (props) => {
   return(
     <Card onClick={()=>props.handleCardClick(props.data)}>
-      <Image src={props.data.image_one} size="medium" />
       <Card.Content>
       <Card.Header>
-        {props.data.name}
+        {props.data.team_name}
       </Card.Header>
         <Card.Description>
-        {props.data.description + "hfjdhfjkhdskjfhdsjkhfjkshf"}
         </Card.Description>
       </Card.Content>
     </Card>
@@ -19,8 +17,7 @@ const HighlightCard = (props) => {
   )
 }
 const mapStateToProps = state =>({
-  highlights: state.user.collaborations_uniq,
-  columns: state.user.collaborations_uniq.length
+  
 })
 
-export default connect(mapStateToProps)(HighlightCard);
+export default connect(mapStateToProps)(ProjectTeamCard);

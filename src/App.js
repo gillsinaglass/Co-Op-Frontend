@@ -8,11 +8,17 @@ import { Route, Switch } from 'react-router-dom';
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {getUser} from './redux/actions/user'
+import {getTeams} from './redux/actions/teams'
+import {getWorks} from './redux/actions/work'
+import {getCollabs} from './redux/actions/collab'
 
 class App extends Component {
 
   componentDidMount(){
     this.props.getUser()
+    this.props.getTeams()
+    this.props.getWorks()
+    this.props.getCollabs()
   }
 
   render() {
@@ -22,6 +28,7 @@ class App extends Component {
         <Route path= "/signup" component={SignUp} />
         {this.props.user.id === undefined? null : <Switch>
           <Route path= "/profile" component={ProfilePage} />
+          <Route path= "/projects" component={ProfilePage} />
         </Switch> }
       </div>
     );
@@ -30,7 +37,10 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getUser: ()=>{dispatch(getUser(1))}
+    getUser: ()=>{dispatch(getUser(1))},
+    getTeams: ()=>{dispatch(getTeams())},
+    getWorks: ()=>{dispatch(getWorks())},
+    getCollabs: ()=>{dispatch(getCollabs())}
   }
 }
 

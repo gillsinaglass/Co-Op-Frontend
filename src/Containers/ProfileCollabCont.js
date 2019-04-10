@@ -1,9 +1,12 @@
 import React, {Component} from 'react';
-import HighlightItem from '../Components/HighlightCard'
+import HighlightCard from '../Components/HighlightCard'
 import { connect } from 'react-redux';
 import { Grid, Segment, Image, Card } from 'semantic-ui-react'
 
-class ProjectHighlights extends Component {
+class ProfileCollab extends Component {
+  constructor(){
+    super()
+  }
   render() {
     return (
       <div>
@@ -11,13 +14,11 @@ class ProjectHighlights extends Component {
         <h2>Collaborations</h2>
       </div>
       <div>
-      <Grid columns={this.props.columns}>
+      <Card.Group relaxed="very">
             {this.props.highlights.map((obj => {
-              return(<Grid.Column>
-                      <Segment><HighlightItem src={obj.image_one} name={obj.name} description={obj.description} /></Segment>
-                    </Grid.Column>)
-            }))}
-     </Grid>
+              return(<HighlightCard key={obj.id} data={obj} handleCardClick={this.props.showModal}/>
+            )}))}
+     </Card.Group>
       </div>
       </div>
 
@@ -29,4 +30,4 @@ class ProjectHighlights extends Component {
     columns: state.user.collaborations_uniq.length
   })
 
-  export default connect(mapStateToProps)(ProjectHighlights);
+  export default connect(mapStateToProps)(ProfileCollab);

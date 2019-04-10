@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 const CoverImage = (props) => {
   return(
     <div className="coverImg">
-    <Image src={props.coverImg} size="medium"/>
+    <Image src={props.coverImg}/>
     </div>
   )
 }

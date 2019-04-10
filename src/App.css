@@ -27,9 +27,10 @@
   font-size: large;
 }
 
-.coverImg {
-  width: 100%;
-  height: 50%
+.coverImg img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
 }
 
 @keyframes App-logo-spin {

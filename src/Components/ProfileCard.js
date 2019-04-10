@@ -22,7 +22,9 @@ const ProfileCard = (props) => {
           <div>
           <h3>Active Collaborations:</h3>
           <ul>
-          <li>{props.activeCollabs[0].name}</li>
+          {props.activeCollabs.map((obj => {
+            return(<li>{obj.name}</li>)
+          }))}
           </ul>
           </div>
         </Card.Description>
