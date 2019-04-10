@@ -6,3 +6,4 @@ export const SET_TEAMS = "SET_TEAMS"
 export const SET_WORKS = "SET_WORKS"
 //collabs
 export const SET_COLLABS = "SET_COLLABS"
+export const POST_COLLAB = "POST_COLLAB"

@@ -1,4 +1,4 @@
-import {SET_COLLABS} from './types'
+import {SET_COLLABS, POST_COLLAB} from './types'
 const URL = `http://localhost:3001/collaborations`
 
 function getCollabs(){
@@ -11,4 +11,22 @@ function getCollabs(){
   }
 }
 
-export {getCollabs};
+function postCollab(formdata){
+  console.log("hey")
+  return (dispatch) => {
+    fetch(`${URL}`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formdata),
+    }
+    )
+    .then(res => res.json())
+    .then(collab => {
+      dispatch({type: POST_COLLAB, payload: collab})
+    })
+  }
+}
+
+export {getCollabs, postCollab};
