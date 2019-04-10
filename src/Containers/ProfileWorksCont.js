@@ -11,7 +11,7 @@ class ProfileWorks extends Component {
     return (
       <div>
       <div>
-        <h2>Works</h2>
+        <h2>My Work</h2>
       </div>
       <div>
       <Card.Group >

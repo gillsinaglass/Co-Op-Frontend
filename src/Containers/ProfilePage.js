@@ -8,6 +8,7 @@ import { Grid, Segment } from 'semantic-ui-react'
 import ProjectModal from '../Components/ProjectModal'
 import ProfileWorksCont from './ProfileWorksCont'
 import WorkModal from '../Components/WorkModel'
+import NewCollabModal from '../Components/NewCollabModal'
 
 
 
@@ -16,12 +17,13 @@ class ProfilePage extends Component {
     super()
     this.state={
       showProjectModal: false,
-      showTeamModal: false,
-      current: null,
+    showWorkModal: false,
+    showCollabModal: false,
+    current: null,
     }
   }
 
-  handleCollabCardClick = (data) => {
+  handleProjectCardClick = (data) => {
     this.setState({
       showProjectModal: true,
       current: data
@@ -30,15 +32,23 @@ class ProfilePage extends Component {
 
   handleWorkCardClick = (data) => {
     this.setState({
-      showTeamModal: true,
+    showWorkModal: true,
       current: data,
+    })
+  }
+
+  handleCollabCardClick = (data) => {
+    this.setState({
+      showCollabModal: true,
+      current: data
     })
   }
 
   close = () => {
     this.setState({
-      showTeamModal: false,
+      showWorkModal: false,
       showProjectModal: false,
+      showCollabModal: false,
       current: null
     })
   }
@@ -57,15 +67,16 @@ class ProfilePage extends Component {
             <Segment><ProfileCard /></Segment>
           </Grid.Column>
           <Grid.Column width={12}>
-            <Segment><ProfileCollab showModal={this.handleCollabCardClick} /></Segment>
+            <Segment><ProfileCollab showModal={this.handleProjectCardClick} showCollabModal={this.handleCollabCardClick}/></Segment>
           </Grid.Column>
           <Grid.Column width={2}>
-            <Segment><ProfileWorksCont showModal={this.handleWorkCardClick}/></Segment>
+            <Segment><ProfileWorksCont showModal={this.handleWorkCardClick} /></Segment>
           </Grid.Column>
        </Grid.Row>
      </Grid>
     {this.state.showProjectModal ? <ProjectModal showModal={this.state.showProjectModal} data={this.state.current} closeModal={this.close}/> : null}
-    {this.state.showTeamModal ? <WorkModal showModal={this.state.showTeamModal} data={this.state.current} closeModal={this.close}/> : null}
+    {this.state.showWorkModal ? <WorkModal showModal={this.state.showWorkModal} data={this.state.current} closeModal={this.close}/> : null}
+    {this.state.showCollabModal ? <NewCollabModal showModal={this.state.showCollabModal} data={this.state.current} closeModal={this.close}/> : null}
       </div>
       );
     }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import HighlightCard from '../Components/HighlightCard'
+import NewCollabCard from '../Components/NewCollabCard'
 import { connect } from 'react-redux';
 import { Grid, Segment, Image, Card } from 'semantic-ui-react'
 
@@ -18,6 +19,7 @@ class ProfileCollab extends Component {
             {this.props.highlights.map((obj => {
               return(<HighlightCard key={obj.id} data={obj} handleCardClick={this.props.showModal}/>
             )}))}
+            <NewCollabCard handleCardClick={this.props.showCollabModal}/>
      </Card.Group>
       </div>
       </div>

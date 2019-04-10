@@ -14,7 +14,9 @@ const WorkModal = (props) => (
       <Modal.Description>
         <Header>Modal Header</Header>
         <p>{props.data.description}</p>
-        <p>{props.works.users}</p>
+        {props.data.users.map((user)=>{
+          return <p>{user.name}</p>
+        })}
       </Modal.Description>
 
     </Modal.Content>
