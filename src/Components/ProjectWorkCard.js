@@ -2,12 +2,12 @@ import React from "react";
 import { Card, Image } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
-const ProjectTeamCard = (props) => {
+const ProjectWorkCard = (props) => {
   return(
     <Card onClick={()=>props.handleCardClick(props.data)}>
       <Card.Content>
       <Card.Header>
-        {props.data.team_name}
+        {props.data.work_title}
       </Card.Header>
         <Card.Description>
         </Card.Description>
@@ -17,7 +17,7 @@ const ProjectTeamCard = (props) => {
   )
 }
 const mapStateToProps = state =>({
-  
+
 })
 
-export default connect(mapStateToProps)(ProjectTeamCard);
+export default connect(mapStateToProps)(ProjectWorkCard);

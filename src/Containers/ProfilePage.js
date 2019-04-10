@@ -6,8 +6,8 @@ import ProfileCollab from "./ProfileCollabCont"
 import { connect } from 'react-redux'
 import { Grid, Segment } from 'semantic-ui-react'
 import ProjectModal from '../Components/ProjectModal'
-import ProfileTeamCont from './ProfileTeamCont'
-import TeamModal from '../Components/TeamModel'
+import ProfileWorksCont from './ProfileWorksCont'
+import WorkModal from '../Components/WorkModel'
 
 
 
@@ -18,7 +18,6 @@ class ProfilePage extends Component {
       showProjectModal: false,
       showTeamModal: false,
       current: null,
-      team: null
     }
   }
 
@@ -29,11 +28,10 @@ class ProfilePage extends Component {
     })
   }
 
-  handleTeamCardClick = (data) => {
+  handleWorkCardClick = (data) => {
     this.setState({
       showTeamModal: true,
       current: data,
-      team: this.props.teams.filter(t=>t.work_id === data.id)
     })
   }
 
@@ -62,18 +60,18 @@ class ProfilePage extends Component {
             <Segment><ProfileCollab showModal={this.handleCollabCardClick} /></Segment>
           </Grid.Column>
           <Grid.Column width={2}>
-            <Segment><ProfileTeamCont showModal={this.handleTeamCardClick}/></Segment>
+            <Segment><ProfileWorksCont showModal={this.handleWorkCardClick}/></Segment>
           </Grid.Column>
        </Grid.Row>
      </Grid>
     {this.state.showProjectModal ? <ProjectModal showModal={this.state.showProjectModal} data={this.state.current} closeModal={this.close}/> : null}
-    {this.state.showTeamModal ? <TeamModal showModal={this.state.showTeamModal} data={this.state.current} team={this.state.team} closeModal={this.close}/> : null}
+    {this.state.showTeamModal ? <WorkModal showModal={this.state.showTeamModal} data={this.state.current} closeModal={this.close}/> : null}
       </div>
       );
     }
 }
 const mapStateToProps = state =>({
-  teams: state.team
+  works: state.works
 })
 
 export default connect(mapStateToProps)(ProfilePage);
