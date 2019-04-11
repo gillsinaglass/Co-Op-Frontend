@@ -4,6 +4,8 @@ import NavBar from "./Components/NavBar"
 import Login from './Components/Login'
 import SignUp from './Components/SignUp'
 import ProfilePage from './Containers/ProfilePage'
+import DiscoverPage from './Containers/DiscoverPage'
+import CollaborationPage from './Containers/CollaborationPage'
 import { Route, Switch } from 'react-router-dom';
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
@@ -26,9 +28,10 @@ class App extends Component {
       <div className="App">
         <Route path= "/login" component={Login} />
         <Route path= "/signup" component={SignUp} />
-        {this.props.user.id === undefined? null : <Switch>
+        {this.props.user.id === undefined? null :<Switch>
           <Route path= "/profile" component={ProfilePage} />
-          <Route path= "/projects" component={ProfilePage} />
+          <Route path= "/discover" component={DiscoverPage} />
+          <Route path= "/collaborations/:collaborationId" component={CollaborationPage} />
         </Switch> }
       </div>
     );

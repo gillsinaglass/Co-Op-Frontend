@@ -1,5 +1,6 @@
 //user
 export const SET_USER = "SET_USER"
+export const PATCH_USER = "PATCH_USER"
 //teams
 export const SET_TEAMS = "SET_TEAMS"
 //works

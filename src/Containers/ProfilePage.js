@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Route, Switch } from "react-router-dom";
 import NavBar from '../Components/NavBar';
 import ProfileCard from "../Components/ProfileCard";
 import CoverImg from "../Components/CoverImage"
@@ -9,6 +10,9 @@ import ProjectModal from '../Components/ProjectModal'
 import ProfileWorksCont from './ProfileWorksCont'
 import WorkModal from '../Components/WorkModel'
 import NewCollabModal from '../Components/NewCollabModal'
+import EditProfileModal from '../Components/EditProfileModal'
+import CollaborationPage from './CollaborationPage'
+import {withRouter} from 'react-router-dom'
 
 
 
@@ -17,9 +21,10 @@ class ProfilePage extends Component {
     super()
     this.state={
       showProjectModal: false,
-    showWorkModal: false,
-    showCollabModal: false,
-    current: null,
+      showWorkModal: false,
+      showCollabModal: false,
+      showProfileModal: false,
+      current: null,
     }
   }
 
@@ -32,7 +37,7 @@ class ProfilePage extends Component {
 
   handleWorkCardClick = (data) => {
     this.setState({
-    showWorkModal: true,
+      showWorkModal: true,
       current: data,
     })
   }
@@ -43,46 +48,66 @@ class ProfilePage extends Component {
       current: data
     })
   }
+  handleProfileCardClick = (data) => {
+    this.setState({
+      showProfileModal: true,
+      current: data
+    })
+  }
 
   close = () => {
     this.setState({
       showWorkModal: false,
       showProjectModal: false,
       showCollabModal: false,
+      showProfileModal: false,
       current: null
     })
   }
   render() {
     return (
       <div>
-        <div>
-          <NavBar />
+        <Switch>
+          <Route
+          path="/collaborations/:collaborationId"
+          render={(props)=> <CollaborationPage {...props}/>}
+          />
+          <Route
+          path="/profile"
+          render={() => (
+            <div>
+              <div>
+                <NavBar />
+              </div>
+              <div>
+                <CoverImg />
+              </div>
+              <Grid columns='equal'>
+                <Grid.Row>
+                  <Grid.Column width={2}>
+                    <Segment><ProfileCard data={this.props.user} showModal={this.handleProfileCardClick}/></Segment>
+                  </Grid.Column>
+                  <Grid.Column width={12}>
+                    <Segment><ProfileCollab showModal={this.handleProjectCardClick} showCollabModal={this.handleCollabCardClick}/></Segment>
+                  </Grid.Column>
+                  <Grid.Column width={2}>
+                    <Segment><ProfileWorksCont showModal={this.handleWorkCardClick} /></Segment>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+              {this.state.showProjectModal ? <ProjectModal showModal={this.state.showProjectModal} data={this.state.current} closeModal={this.close}/> : null}
+              {this.state.showWorkModal ? <WorkModal showModal={this.state.showWorkModal} data={this.state.current} closeModal={this.close}/> : null}
+              {this.state.showCollabModal ? <NewCollabModal showModal={this.state.showCollabModal} data={this.state.current} closeModal={this.close}/> : null}
+              {this.state.showProfileModal ? <EditProfileModal showModal={this.state.showProfileModal} data={this.state.current} closeModal={this.close}/> : null}
+            </div>
+          )}/>
+        </Switch>
         </div>
-        <div>
-        <CoverImg />
-        </div>
-      <Grid>
-        <Grid.Row>
-          <Grid.Column width={2}>
-            <Segment><ProfileCard /></Segment>
-          </Grid.Column>
-          <Grid.Column width={12}>
-            <Segment><ProfileCollab showModal={this.handleProjectCardClick} showCollabModal={this.handleCollabCardClick}/></Segment>
-          </Grid.Column>
-          <Grid.Column width={2}>
-            <Segment><ProfileWorksCont showModal={this.handleWorkCardClick} /></Segment>
-          </Grid.Column>
-       </Grid.Row>
-     </Grid>
-    {this.state.showProjectModal ? <ProjectModal showModal={this.state.showProjectModal} data={this.state.current} closeModal={this.close}/> : null}
-    {this.state.showWorkModal ? <WorkModal showModal={this.state.showWorkModal} data={this.state.current} closeModal={this.close}/> : null}
-    {this.state.showCollabModal ? <NewCollabModal showModal={this.state.showCollabModal} data={this.state.current} closeModal={this.close}/> : null}
-      </div>
       );
-    }
-}
-const mapStateToProps = state =>({
-  works: state.works
-})
+    }}
+  const mapStateToProps = state =>({
+    works: state.works,
+    user: state.user
+  })
 
-export default connect(mapStateToProps)(ProfilePage);
+export default withRouter(connect(mapStateToProps)(ProfilePage))

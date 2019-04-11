@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
-import { Button, Header, Icon, Image, Modal } from 'semantic-ui-react'
+import { Button, Header, Icon, Image, Modal, Item } from 'semantic-ui-react'
+import UserThumbnail from './UserThumbnail'
 
 const WorkModal = (props) => (
   <Modal open={props.showModal}
@@ -14,9 +15,11 @@ const WorkModal = (props) => (
       <Modal.Description>
         <Header>Modal Header</Header>
         <p>{props.data.description}</p>
+        <Item.Group>
         {props.data.users.map((user)=>{
-          return <p>{user.name}</p>
+          return (<UserThumbnail key={"thumb" + user.id} user={user}/>)
         })}
+        </Item.Group>
       </Modal.Description>
 
     </Modal.Content>

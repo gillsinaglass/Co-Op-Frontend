@@ -1,21 +1,22 @@
 import React from "react";
-import { Card, Image } from 'semantic-ui-react'
+import { Card, Image} from 'semantic-ui-react'
+import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
 
 const HighlightCard = (props) => {
   return(
+  
     <Card onClick={()=>props.handleCardClick(props.data)}>
       <Image src={props.data.image_one} size="medium" />
       <Card.Content>
-      <Card.Header>
-        {props.data.name}
-      </Card.Header>
-        <Card.Description>
-        {props.data.description + "hfjdhfjkhdskjfhdsjkhfjkshf"}
-        </Card.Description>
+        <Card.Header>
+          {props.data.name}
+        </Card.Header>
+          <Card.Description>
+            {props.data.description}
+          </Card.Description>
       </Card.Content>
     </Card>
-
   )
 }
 const mapStateToProps = state =>({

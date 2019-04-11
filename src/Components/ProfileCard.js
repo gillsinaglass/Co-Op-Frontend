@@ -1,28 +1,33 @@
-import React from "react";
+import React , {Component} from "react";
 import { Card, Image } from 'semantic-ui-react'
 import ProfileImage from "./ProfileImage"
 import { connect } from 'react-redux'
+import { patchUser } from '../redux/actions/user'
 
-const ProfileCard = (props) => {
-  return(
-    <Card>
+class ProfileCard extends Component {
+  constructor(){
+    super()
+  }
+  render(){
+    return(
+    <Card onClick={()=>this.props.showModal(this.props.data)}>
       <ProfileImage />
       <Card.Content >
         <Card.Header>
-          {props.name}
+          {this.props.name}
         </Card.Header>
         <Card.Meta>
-          <span className='job'>{props.job}</span>
+          <span className='job'>{this.props.job}</span>
         </Card.Meta>
         <Card.Description>
-          <h3>{props.email}</h3>
-          <h3>{props.bio}</h3>
-          <h3>Teams: {props.teams.length}</h3>
-          <h3>Collaborations: {props.collabs.length}</h3>
+          <h3>{this.props.email}</h3>
+          <h3>{this.props.bio}</h3>
+          <h3>Teams: {this.props.teams.length}</h3>
+          <h3>Collaborations: {this.props.collabs.length}</h3>
           <div>
           <h3>Active Collaborations:</h3>
           <ul>
-          {props.activeCollabs.map((obj => {
+          {this.props.activeCollabs.map((obj => {
             return(<li>{obj.name}</li>)
           }))}
           </ul>
@@ -31,6 +36,7 @@ const ProfileCard = (props) => {
       </Card.Content >
     </Card>
   )
+}
 }
 const mapStateToProps = state =>({
   name: state.user.name,
