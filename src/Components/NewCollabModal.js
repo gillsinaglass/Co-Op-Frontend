@@ -11,7 +11,7 @@ const NewCollabModal = (props) => (
       Create A New Collaboration!
     </Modal.Header>
     <Modal.Content image scrolling>
-      <NewCollabForm />
+      <NewCollabForm closeModal={props.closeModal}/>
     </Modal.Content>
   </Modal>
 )

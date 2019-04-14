@@ -6,21 +6,24 @@ import SignUp from './Components/SignUp'
 import ProfilePage from './Containers/ProfilePage'
 import DiscoverPage from './Containers/DiscoverPage'
 import CollaborationPage from './Containers/CollaborationPage'
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {getUser} from './redux/actions/user'
 import {getTeams} from './redux/actions/teams'
 import {getWorks} from './redux/actions/work'
 import {getCollabs} from './redux/actions/collab'
+import {setCurrentCollab} from './redux/actions/currentCollab'
 
 class App extends Component {
 
   componentDidMount(){
-    this.props.getUser()
+    const collab = {id: 1}
+    this.props.getUser(1)
     this.props.getTeams()
     this.props.getWorks()
     this.props.getCollabs()
+    this.props.setCurrentCollab(collab)
   }
 
   render() {
@@ -29,23 +32,23 @@ class App extends Component {
         <Route path= "/login" component={Login} />
         <Route path= "/signup" component={SignUp} />
         {this.props.user.id === undefined? null :<Switch>
-          <Route path= "/profile" component={ProfilePage} />
+          <Route exact path= "/profile" component={ProfilePage} />
           <Route path= "/discover" component={DiscoverPage} />
           <Route path= "/collaborations/:collaborationId" component={CollaborationPage} />
-        </Switch> }
+        </Switch>}
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getUser: ()=>{dispatch(getUser(1))},
-    getTeams: ()=>{dispatch(getTeams())},
-    getWorks: ()=>{dispatch(getWorks())},
-    getCollabs: ()=>{dispatch(getCollabs())}
+const mapDispatchToProps = {
+    getUser,
+    getTeams,
+    getWorks,
+    getCollabs,
+    setCurrentCollab
   }
-}
+
 
 const mapStateToProps = state =>({
   user: state.user

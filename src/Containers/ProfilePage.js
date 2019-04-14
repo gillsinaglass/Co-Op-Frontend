@@ -12,9 +12,8 @@ import WorkModal from '../Components/WorkModel'
 import NewCollabModal from '../Components/NewCollabModal'
 import EditProfileModal from '../Components/EditProfileModal'
 import CollaborationPage from './CollaborationPage'
+import {setCurrentCollab} from '../redux/actions/currentCollab'
 import {withRouter} from 'react-router-dom'
-
-
 
 class ProfilePage extends Component {
   constructor(){
@@ -105,9 +104,12 @@ class ProfilePage extends Component {
         </div>
       );
     }}
-  const mapStateToProps = state =>({
+const mapStateToProps = state =>({
     works: state.works,
     user: state.user
   })
+const mapDispatchToProps = {
+    setCurrentCollab
+  }
 
-export default withRouter(connect(mapStateToProps)(ProfilePage))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfilePage))

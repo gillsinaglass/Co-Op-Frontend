@@ -1,20 +1,18 @@
-import React , {Component} from "react";
-import { Card, Image } from 'semantic-ui-react'
-import { connect } from 'react-redux'
+import React, {Component} from "react";
+import {connect} from 'react-redux';
+import CollabTeamItem from './CollabTeamItem'
+import { Item } from 'semantic-ui-react'
 
-class CollabTeam extends Component {
-  render(){
-    return(
+const CollabTeam = (props) => {
+  return(
     <div>
-      <div>
-        <h1></h1>
-      </div>
-
+      <h1>Team</h1>
+    <Item.Group>
+      {props.data.map((user => {
+        return(<CollabTeamItem user={user}/>
+    )}))}
+    </Item.Group>
     </div>
   )}
-  }
-const mapStateToProps = state =>({
-  collaboration: state.collaboration
-})
 
-export default connect((mapStateToProps)(CollabTeam))
+export default CollabTeam

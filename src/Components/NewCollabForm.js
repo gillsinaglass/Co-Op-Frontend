@@ -27,7 +27,7 @@ class NewCollabForm extends Component {
       status: this.state.status,
       description: this.state.description
     };
-    debugger
+    this.props.closeModal()
     this.props.postCollab(info)
   }
 
