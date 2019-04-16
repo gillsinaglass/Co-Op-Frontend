@@ -5,9 +5,27 @@ import { Grid, Segment, Image } from 'semantic-ui-react'
 import CollabTeam from '../Components/CollabTeam'
 import {withRouter} from 'react-router-dom'
 import {setCurrentCollab} from '../redux/actions/currentCollab'
+import WorkTable from './WorkTable'
+import NewWorkModal from '../Components/NewWorkModal'
 
 
 class CollaborationPage extends Component {
+  constructor(){
+    super()
+    this.state={
+      showNewWork: false,
+    }
+  }
+  handleNewWorkClick = () => {
+    this.setState({
+      showNewWork: true
+    })
+  }
+  close = () => {
+    this.setState({
+      showNewWork: false
+    })
+  }
   render() {
     return !this.props.collaboration ? "hi" : (
       <div>
@@ -26,15 +44,15 @@ class CollaborationPage extends Component {
           </Grid.Row>
             </Grid.Column>
             <Grid.Column width={11} className="column-2">
-            <p>2</p>
+            <WorkTable data={this.props.collaboration} showModal={this.handleNewWorkClick}/>
             </Grid.Column>
             <Grid.Column width={2} className="column-3">
             <p>3</p>
             </Grid.Column>
         </Grid>
         </div>
+        {this.state.showNewWork ? <NewWorkModal showModal={this.state.showNewWork} closeModal={this.close}/> : null}
       </div>
-
     )
   }
 }
