@@ -14,6 +14,7 @@ import {getWorks} from './redux/actions/work'
 import {getCollabs} from './redux/actions/collab'
 import {setCurrentCollab} from './redux/actions/currentCollab'
 import {getAllUsers} from './redux/actions/users'
+import {getAllTasks} from './redux/actions/task'
 
 class App extends Component {
 
@@ -22,6 +23,7 @@ class App extends Component {
     this.props.getAllUsers()
     this.props.getWorks()
     this.props.getCollabs()
+    this.props.getAllTasks()
   }
 
   render() {
@@ -29,7 +31,7 @@ class App extends Component {
       <div className="App">
         <Route path= "/login" component={Login} />
         <Route path= "/signup" component={SignUp} />
-        {this.props.user.id === undefined? null :<Switch>
+        {this.props.user.id === undefined? "hello" :<Switch>
           <Route exact path= "/profile" component={ProfilePage} />
           <Route path= "/discover" component={DiscoverPage} />
           <Route path= "/collaborations/:collaborationId" component={CollaborationPage} />
@@ -44,7 +46,8 @@ const mapDispatchToProps = {
     getWorks,
     getCollabs,
     setCurrentCollab,
-    getAllUsers
+    getAllUsers,
+    getAllTasks
   }
 
 

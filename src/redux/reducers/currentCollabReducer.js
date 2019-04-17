@@ -5,7 +5,7 @@ export default (state={},action)=>{
     case CURRENT_COLLAB:
       return action.payload;
     default:
-      return null;
+      return state;
   }
 
 }

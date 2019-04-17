@@ -13,6 +13,7 @@ import NewCollabModal from '../Components/NewCollabModal'
 import EditProfileModal from '../Components/EditProfileModal'
 import {setCurrentCollab} from '../redux/actions/currentCollab'
 import {withRouter} from 'react-router-dom'
+import MyTasksTable from './MyTasksTable'
 
 class ProfilePage extends Component {
   constructor(){
@@ -79,6 +80,8 @@ class ProfilePage extends Component {
                   </Grid.Column>
                   <Grid.Column >
                     <Segment><ProfileCollab showModal={this.handleProjectCardClick} showCollabModal={this.handleCollabCardClick}/></Segment>
+                    <Grid.Row>
+                    </Grid.Row>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

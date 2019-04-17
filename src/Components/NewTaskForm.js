@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Checkbox, Form, Input, Radio, Select, TextArea } from 'semantic-ui-react'
+import { Button, Checkbox, Form, Input, Radio, Select, TextArea, Image } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {postTask} from '../redux/actions/task'
@@ -11,6 +11,7 @@ class NewTaskForm extends Component {
     status: "",
     description: "",
     priority: "",
+    estimated_time: null,
     user: null
   }
 }
@@ -22,7 +23,8 @@ class NewTaskForm extends Component {
       status: document.getElementById('status').value,
       description: this.state.description,
       priority: document.getElementById('priority').value,
-      user_id: document.getElementById('user').value
+      user_id: document.getElementById('user').value,
+      estimated_time: parseInt(document.getElementById('estimated_time').value)
     };
     this.props.postTask(task)
     this.props.closeModal()
@@ -30,7 +32,8 @@ class NewTaskForm extends Component {
       status: "",
       description: "",
       priority: "",
-      user: null
+      user: null,
+      estimated_time: null
     })
   }
 
@@ -56,8 +59,16 @@ class NewTaskForm extends Component {
   </Form.Field>
   <Form.Field id="user" label='Team Member' control='select'>
     {this.props.users.map((user=>{
-      return(<option value={user.id}>{user.name}</option>)
+      return(<option value={user.id}>{user.name} - {user.job_title}</option>)
     }))}
+  </Form.Field>
+  <Form.Field id="estimated_time" label='Time Estimate' control='select'>
+  <option value='1'>1 Day</option>
+  <option value='2'>2 Days</option>
+  <option value='3'>3 Days</option>
+  <option value='4'>4 Days</option>
+  <option value='5'>5 Days</option>
+  <option value='6'>6 Days</option>
   </Form.Field>
   </Form.Group>
   <Form.Group>
@@ -75,7 +86,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return{
-    users: state.currentCollab.users_uniq
+    users: state.users
   }
 }
 

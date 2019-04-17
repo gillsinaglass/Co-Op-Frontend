@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import CollabTeamItem from './CollabTeamItem'
-import { Item } from 'semantic-ui-react'
+import { Item , Button} from 'semantic-ui-react'
 
 const CollabTeam = (props) => {
   return(

@@ -2,6 +2,7 @@
 export const SET_USER = "SET_USER"
 export const PATCH_USER = "PATCH_USER"
 export const GET_USERS = "GET_USERS"
+export const POST_USER = "POST_USER"
 //teams
 export const SET_TEAMS = "SET_TEAMS"
 //works
@@ -14,3 +15,4 @@ export const CURRENT_COLLAB = "CURRENT_COLLAB"
 
 //tasks
 export const POST_TASK = "POST_TASK"
+export const GET_TASKS = "GET_TASKS"

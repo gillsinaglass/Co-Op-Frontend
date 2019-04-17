@@ -29,4 +29,5 @@ function patchUser(data){
   }
 }
 
+
 export {getUser, patchUser};

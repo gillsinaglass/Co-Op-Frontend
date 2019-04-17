@@ -1,4 +1,4 @@
-import {GET_USERS} from './types'
+import {GET_USERS, POST_USER} from './types'
 const URL = `http://localhost:3001/users`
 
 function getAllUsers(){
@@ -11,4 +11,22 @@ function getAllUsers(){
   }
 }
 
-export {getAllUsers};
+function postUser(formdata){
+  console.log("hey")
+  return (dispatch) => {
+    fetch(`${URL}`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formdata),
+    }
+    )
+    .then(res => res.json())
+    .then(user => {
+      dispatch({type: POST_USER, payload: user})
+    })
+  }
+}
+
+export {getAllUsers, postUser};

@@ -8,6 +8,7 @@ import {setCurrentCollab} from '../redux/actions/currentCollab'
 import WorkTable from './WorkTable'
 import NewWorkModal from '../Components/NewWorkModal'
 import NewTaskModal from '../Components/NewTaskModal'
+import AddUserToCollabModal from '../Components/AddUserToCollabModal'
 import {initialCollab} from '../initialCollab'
 
 
@@ -32,17 +33,16 @@ class CollaborationPage extends Component {
       current: data
     })
   }
+  handleAddUserToTaskClick = (data) => {
+    this.setState({
+      showAddUser: true,
+      current: data
+    })
+  }
   close = () => {
     this.setState({
       showNewWork: false,
-      showNewTask: false
-    })
-  }
-
-  setCollabState = () => {
-    debugger
-    this.setState({
-      collab: this.props.collaboration
+      showNewTask: false,
     })
   }
 
@@ -59,7 +59,7 @@ class CollaborationPage extends Component {
 
 }
   render() {
-    return !this.props.collaboration ? "hi" : (
+    return this.props.collaboration.id === undefined ? "fart" : (
       <div>
         <div>
           <NavBar />
@@ -80,7 +80,7 @@ class CollaborationPage extends Component {
             <Grid.Column width={11} className="column-2">
             <Button id='add-work' onClick={()=>this.handleNewWorkClick()}>Add New Work</Button>
             {this.props.collaboration.works.map((work => {
-              return(<WorkTable data={work} showModal={this.handleNewTaskClick}/>)
+              return(<WorkTable data={work} showModal={this.handleNewTaskClick} showAddUserModal={this.handleAddUserToTaskClick}/>)
             }))}
             </Grid.Column>
         </Grid>

@@ -13,6 +13,7 @@ const rootReducer = combineReducers({
   works: workReducer,
   collabs: collabReducer,
   currentCollab: currentCollabReducer,
+  tasks: taskReducer
 })
 
 export default rootReducer

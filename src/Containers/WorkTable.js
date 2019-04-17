@@ -11,8 +11,39 @@ class WorkTable extends Component {
     }
   }
   setUser = (task) =>{
-    let user = this.props.users.find(user => user.id === task.user_id)
-    return(<Image size="mini" src={user.profile_picture}/>)
+    return(<Button>Hello</Button>)
+  }
+
+  schedule = (task) => {
+    if (task.updated_at !== task.created_at){
+      return
+    }
+  }
+
+  completed=(task)=>{
+    switch (task.status) {
+      case 'Not Started':
+        return null;
+      case 'Pending':
+        return null;
+      case 'Done':
+        return new Date(task.updated_at).toDateString();
+      default:
+        return null;
+    }
+  }
+
+  completedColor=(task)=>{
+    switch (task.status) {
+      case 'Not Started':
+        return "negative";
+      case 'Pending':
+        return "warning";
+      case 'Done':
+        return "positive";
+      default:
+        return null;
+    }
   }
   render(){
     return(
@@ -28,21 +59,35 @@ class WorkTable extends Component {
             <Table.HeaderCell rowSpan='2'>Description</Table.HeaderCell>
             <Table.HeaderCell rowSpan='2'>Status</Table.HeaderCell>
             <Table.HeaderCell rowSpan='2'>Priority</Table.HeaderCell>
-            <Table.HeaderCell rowSpan='2'>Created Date</Table.HeaderCell>
+            <Table.HeaderCell rowSpan='2'>Estimated Time</Table.HeaderCell>
+            <Table.HeaderCell rowSpan='2'>Start Date</Table.HeaderCell>
+            <Table.HeaderCell rowSpan='2'>Date Completed</Table.HeaderCell>
+            <Table.HeaderCell rowSpan='2'>Delivery Schedule</Table.HeaderCell>
           </Table.Row>
           <Table.Row>
           </Table.Row>
         </Table.Header>
         <Table.Body>
         {this.props.data.tasks.map((task => {
-          this.setUser(task)
+          var date = new Date(task.created_at)
+          var comp = new Date(task.updated_at)
           return(
             <Table.Row>
               <Table.Cell>{this.setUser(task)}</Table.Cell>
               <Table.Cell selectable textAlign='center'>{task.description}</Table.Cell>
-              <Table.Cell selectable textAlign='center'>{task.status}</Table.Cell>
-              <Table.Cell selectable textAlign='center'>{task.priority}</Table.Cell>
-              <Table.Cell selectable textAlign='center'>{task.created_at}</Table.Cell>
+              <Table.Cell selectable
+              positive={task.status === 'Done' ? true : false}
+              negative={task.status === 'Not Started' ? true : false}
+              warning={task.status === 'Pending' ? true : false}
+              textAlign='center'>{task.status}</Table.Cell>
+              <Table.Cell selectable
+              positive={task.priority === 'Low' ? true : false}
+              negative={task.priority === 'High' ? true : false}
+              warning={task.priority === 'Medium' ? true : false}textAlign='center'>{task.priority}</Table.Cell>
+              <Table.Cell selectable textAlign='center'>{task.estimated_time} Day(s)</Table.Cell>
+              <Table.Cell selectable textAlign='center'>{date.toDateString()}</Table.Cell>
+              <Table.Cell selectable textAlign='center'>{this.completed(task)}</Table.Cell>
+              <Table.Cell selectable textAlign='center'>h</Table.Cell>
             </Table.Row>
           )
         }))}
@@ -51,7 +96,7 @@ class WorkTable extends Component {
       <Table.Row>
         <Table.HeaderCell>
         </Table.HeaderCell>
-        <Table.HeaderCell colSpan='5'>
+        <Table.HeaderCell colSpan='9'>
           <Button floated='right' icon labelPosition='left' primary size='small' onClick={()=>this.props.showModal(this.props.data)}>
             <Icon name='user' /> Add Task
           </Button>
