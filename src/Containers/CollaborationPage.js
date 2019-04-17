@@ -50,6 +50,14 @@ class CollaborationPage extends Component {
     let id = parseInt(this.props.match.params.collaborationId)
     this.props.setCurrentCollab(id)
   }
+
+  componentDidUpdate(prevProps, prevState) {
+  // Typical usage (don't forget to compare props):
+  if (this.state.showNewTask !== prevState.showNewTask || this.state.showNewWork !== prevState.showNewWork) {
+    let id = parseInt(this.props.match.params.collaborationId);
+    this.props.setCurrentCollab(id); }
+
+}
   render() {
     return !this.props.collaboration ? "hi" : (
       <div>

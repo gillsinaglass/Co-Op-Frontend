@@ -77,11 +77,8 @@ class ProfilePage extends Component {
                   <Grid.Column width={2}>
                     <Segment><ProfileCard data={this.props.user} showModal={this.handleProfileCardClick}/></Segment>
                   </Grid.Column>
-                  <Grid.Column width={12}>
+                  <Grid.Column >
                     <Segment><ProfileCollab showModal={this.handleProjectCardClick} showCollabModal={this.handleCollabCardClick}/></Segment>
-                  </Grid.Column>
-                  <Grid.Column width={2}>
-                    <Segment><ProfileWorksCont showModal={this.handleWorkCardClick} /></Segment>
                   </Grid.Column>
                 </Grid.Row>
               </Grid>
@@ -90,7 +87,6 @@ class ProfilePage extends Component {
               {this.state.showCollabModal ? <NewCollabModal showModal={this.state.showCollabModal} data={this.state.current} closeModal={this.close}/> : null}
               {this.state.showProfileModal ? <EditProfileModal showModal={this.state.showProfileModal} data={this.state.current} closeModal={this.close}/> : null}
             </div>
-          )}/>
         </div>
       );
     }}

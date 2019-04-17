@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import _ from 'lodash'; 
+import _ from 'lodash';
 import { Icon, Table, Button, Form, Image } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 
@@ -28,6 +28,7 @@ class WorkTable extends Component {
             <Table.HeaderCell rowSpan='2'>Description</Table.HeaderCell>
             <Table.HeaderCell rowSpan='2'>Status</Table.HeaderCell>
             <Table.HeaderCell rowSpan='2'>Priority</Table.HeaderCell>
+            <Table.HeaderCell rowSpan='2'>Created Date</Table.HeaderCell>
           </Table.Row>
           <Table.Row>
           </Table.Row>
@@ -41,6 +42,7 @@ class WorkTable extends Component {
               <Table.Cell selectable textAlign='center'>{task.description}</Table.Cell>
               <Table.Cell selectable textAlign='center'>{task.status}</Table.Cell>
               <Table.Cell selectable textAlign='center'>{task.priority}</Table.Cell>
+              <Table.Cell selectable textAlign='center'>{task.created_at}</Table.Cell>
             </Table.Row>
           )
         }))}

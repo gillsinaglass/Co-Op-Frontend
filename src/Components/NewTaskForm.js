@@ -24,7 +24,6 @@ class NewTaskForm extends Component {
       priority: document.getElementById('priority').value,
       user_id: document.getElementById('user').value
     };
-    debugger
     this.props.postTask(task)
     this.props.closeModal()
     this.setState({
