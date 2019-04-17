@@ -1,42 +1,46 @@
 import React, {Component} from 'react'
-import { Icon, Table, Button, Form } from 'semantic-ui-react'
+import _ from 'lodash'; 
+import { Icon, Table, Button, Form, Image } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 
 class WorkTable extends Component {
   constructor(props){
     super(props)
     this.state ={
-      work: this.props.data.works
+      work: this.props.data,
     }
+  }
+  setUser = (task) =>{
+    let user = this.props.users.find(user => user.id === task.user_id)
+    return(<Image size="mini" src={user.profile_picture}/>)
   }
   render(){
     return(
+      <div>
       <Table celled structured>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell rowSpan='2'>Work Title</Table.HeaderCell>
-            <Table.HeaderCell rowSpan='2'>Description</Table.HeaderCell>
-            <Table.HeaderCell rowSpan='2'>Status</Table.HeaderCell>
-            <Table.HeaderCell colSpan='3'>Team Members</Table.HeaderCell>
+          <Table.HeaderCell rowSpan='1'>{this.state.work.work_title}</Table.HeaderCell>
+          <Table.HeaderCell rowSpan='1'>{this.state.work.description}</Table.HeaderCell>
           </Table.Row>
           <Table.Row>
-            <Table.HeaderCell>Developer</Table.HeaderCell>
-            <Table.HeaderCell>Designer</Table.HeaderCell>
+            <Table.HeaderCell rowSpan='1'>Team Member</Table.HeaderCell>
+            <Table.HeaderCell rowSpan='2'>Description</Table.HeaderCell>
+            <Table.HeaderCell rowSpan='2'>Status</Table.HeaderCell>
+            <Table.HeaderCell rowSpan='2'>Priority</Table.HeaderCell>
+          </Table.Row>
+          <Table.Row>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-        {this.props.data.works.map((work => {
+        {this.props.data.tasks.map((task => {
+          this.setUser(task)
           return(
             <Table.Row>
-              <Table.Cell>{work.work_title}</Table.Cell>
-              <Table.Cell selectable textAlign='center'>{work.description}</Table.Cell>
-              <Table.Cell selectable textAlign='center'>{work.status}</Table.Cell>
-                {work.users.map(user=>
-                  user.job_title === "Developer" ? <Table.Cell textAlign='center'> {user.name}</Table.Cell> : null)
-                  }
-                {work.users.map(user=>
-                  user.job_title === "Designer" ? <Table.Cell textAlign='center'> {user.name}</Table.Cell> : null)
-                  }
+              <Table.Cell>{this.setUser(task)}</Table.Cell>
+              <Table.Cell selectable textAlign='center'>{task.description}</Table.Cell>
+              <Table.Cell selectable textAlign='center'>{task.status}</Table.Cell>
+              <Table.Cell selectable textAlign='center'>{task.priority}</Table.Cell>
             </Table.Row>
           )
         }))}
@@ -45,17 +49,25 @@ class WorkTable extends Component {
       <Table.Row>
         <Table.HeaderCell>
         </Table.HeaderCell>
-        <Table.HeaderCell colSpan='4'>
-          <Button floated='right' icon labelPosition='left' primary size='small' onClick={()=>this.props.showModal()}>
-            <Icon name='user' /> Add Work
+        <Table.HeaderCell colSpan='5'>
+          <Button floated='right' icon labelPosition='left' primary size='small' onClick={()=>this.props.showModal(this.props.data)}>
+            <Icon name='user' /> Add Task
           </Button>
         </Table.HeaderCell>
       </Table.Row>
 
     </Table.Footer>
       </Table>
+      <div>
+      </div>
+    </div>
     )
   }
 }
+const mapStateToProps = (state, ownProps) => {
+return {
+  users: state.users
+};
+};
 
-   export default WorkTable
+export default connect(mapStateToProps)(WorkTable);

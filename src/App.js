@@ -10,20 +10,18 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {getUser} from './redux/actions/user'
-import {getTeams} from './redux/actions/teams'
 import {getWorks} from './redux/actions/work'
 import {getCollabs} from './redux/actions/collab'
 import {setCurrentCollab} from './redux/actions/currentCollab'
+import {getAllUsers} from './redux/actions/users'
 
 class App extends Component {
 
   componentDidMount(){
-    const collab = {id: 1}
     this.props.getUser(1)
-    this.props.getTeams()
+    this.props.getAllUsers()
     this.props.getWorks()
     this.props.getCollabs()
-    this.props.setCurrentCollab(collab)
   }
 
   render() {
@@ -43,10 +41,10 @@ class App extends Component {
 
 const mapDispatchToProps = {
     getUser,
-    getTeams,
     getWorks,
     getCollabs,
-    setCurrentCollab
+    setCurrentCollab,
+    getAllUsers
   }
 
 

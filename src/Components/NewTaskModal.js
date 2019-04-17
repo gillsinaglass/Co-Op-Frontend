@@ -1,17 +1,17 @@
 import _ from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
-import NewWorkForm from './NewWorkForm'
+import NewTaskForm from './NewTaskForm'
 import { Button, Header, Icon, Image, Modal, Form } from 'semantic-ui-react'
 
-const NewWorkModal = (props) => (
+const NewTaskModal = (props) => (
   <Modal dimmer="blurring" size="fullscreen" open={props.showModal}
           onClose={props.closeModal}>
     <Modal.Header>
-      Create A New Work!
+      Create A New Task!
     </Modal.Header>
     <Modal.Content image scrolling>
-      <NewWorkForm closeModal={props.closeModal} data={props.data}/>
+      <NewTaskForm data={props.data} closeModal={props.closeModal}/>
     </Modal.Content>
   </Modal>
 )
@@ -20,4 +20,4 @@ const mapStateToProps = state =>({
 })
 
 
-export default NewWorkModal
+export default NewTaskModal

@@ -22,7 +22,6 @@ class ProfileCard extends Component {
         <Card.Description>
           <h3>{this.props.email}</h3>
           <h3>{this.props.bio}</h3>
-          <h3>Teams: {this.props.teams.length}</h3>
           <h3>Collaborations: {this.props.collabs.length}</h3>
           <div>
           <h3>Active Collaborations:</h3>

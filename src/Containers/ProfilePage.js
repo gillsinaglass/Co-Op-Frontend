@@ -11,7 +11,6 @@ import ProfileWorksCont from './ProfileWorksCont'
 import WorkModal from '../Components/WorkModel'
 import NewCollabModal from '../Components/NewCollabModal'
 import EditProfileModal from '../Components/EditProfileModal'
-import CollaborationPage from './CollaborationPage'
 import {setCurrentCollab} from '../redux/actions/currentCollab'
 import {withRouter} from 'react-router-dom'
 
@@ -66,14 +65,6 @@ class ProfilePage extends Component {
   render() {
     return (
       <div>
-        <Switch>
-          <Route
-          path="/collaborations/:collaborationId"
-          render={(props)=> <CollaborationPage {...props}/>}
-          />
-          <Route
-          path="/profile"
-          render={() => (
             <div>
               <div>
                 <NavBar />
@@ -100,7 +91,6 @@ class ProfilePage extends Component {
               {this.state.showProfileModal ? <EditProfileModal showModal={this.state.showProfileModal} data={this.state.current} closeModal={this.close}/> : null}
             </div>
           )}/>
-        </Switch>
         </div>
       );
     }}

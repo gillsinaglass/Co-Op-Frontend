@@ -10,24 +10,25 @@ class NewWorkForm extends Component {
   this.state = {
     work_title: "",
     status: "",
-    description: ""
+    description: "",
+    priority: "",
+    users: []
   }
 }
 
   handleSubmit = (e) => {
     e.preventDefault();
     let info = {
-      collaboration_id: this.props.collab.id,
+      collaboration_id: this.props.data.id,
       work_title: this.state.work_title,
-      status: document.getElementById('status').value,
-      description: this.state.description
+      description: this.state.description,
     };
+
     this.props.closeModal()
     this.props.postWork(info)
     this.setState({
       work_title: "",
-      status: "",
-      description: ""
+      description: "",
     })
   }
 
@@ -39,15 +40,10 @@ class NewWorkForm extends Component {
           <Form.Field control={Input} label='Work Title' placeholder='Work Title' value={this.state.work_title} onChange={e => this.setState({ work_title: e.target.value })}/>
           <Form.Field control={TextArea} label='Description' placeholder='What needs to get done?' onChange={e => this.setState({ description: e.target.value })}/>
         </Form.Group>
-        <Form.Group widths='equal'>
-      <Form.Field id="status" label='Status' control='select'>
-        <option value='Not Started'>Not Started</option>
-        <option value='Pending'>Pending</option>
-        <option value='Done'>Done</option>
-      </Form.Field>
-    </Form.Group>
-        <Form.Button onClick={(e)=>this.handleSubmit(e)}>Submit</Form.Button>
-      </Form>
+  <Form.Group>
+    <Form.Button onClick={(e)=>this.handleSubmit(e)}>Submit</Form.Button>
+  </Form.Group>
+  </Form>
     )
   }
 }

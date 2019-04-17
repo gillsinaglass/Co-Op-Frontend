@@ -22,7 +22,6 @@ class ProjectModal extends Component{
     </Modal.Content>
     <Link className="collab" to={`/collaborations/${this.props.data.id}`}>
     <Button onClick={()=>{
-        this.props.setCurrentCollab(this.props.data)
         this.props.closeModal()}}>View Collaboration</Button>
     </Link>
   </Modal>

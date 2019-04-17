@@ -1,8 +1,8 @@
-import {SET_TEAMS} from '../actions/types'
+import {POST_TASK} from '../actions/types'
 
 export default (state={},action)=>{
   switch (action.type) {
-    case SET_TEAMS:
+    case POST_TASK:
       return action.payload;
     default:
       return state;

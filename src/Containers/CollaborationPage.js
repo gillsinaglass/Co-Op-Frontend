@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import NavBar from '../Components/NavBar';
 import { connect } from 'react-redux'
-import { Grid, Segment, Image } from 'semantic-ui-react'
+import { Grid, Segment, Image, Button } from 'semantic-ui-react'
 import CollabTeam from '../Components/CollabTeam'
 import {withRouter} from 'react-router-dom'
 import {setCurrentCollab} from '../redux/actions/currentCollab'
 import WorkTable from './WorkTable'
 import NewWorkModal from '../Components/NewWorkModal'
+import NewTaskModal from '../Components/NewTaskModal'
+import {initialCollab} from '../initialCollab'
 
 
 class CollaborationPage extends Component {
@@ -14,6 +16,9 @@ class CollaborationPage extends Component {
     super()
     this.state={
       showNewWork: false,
+      showNewTask: false,
+      current: null,
+      collab: initialCollab
     }
   }
   handleNewWorkClick = () => {
@@ -21,16 +26,37 @@ class CollaborationPage extends Component {
       showNewWork: true
     })
   }
+  handleNewTaskClick = (data) => {
+    this.setState({
+      showNewTask: true,
+      current: data
+    })
+  }
   close = () => {
     this.setState({
-      showNewWork: false
+      showNewWork: false,
+      showNewTask: false
     })
+  }
+
+  setCollabState = () => {
+    debugger
+    this.setState({
+      collab: this.props.collaboration
+    })
+  }
+
+  componentDidMount(){
+    let id = parseInt(this.props.match.params.collaborationId)
+    this.props.setCurrentCollab(id)
   }
   render() {
     return !this.props.collaboration ? "hi" : (
       <div>
         <div>
           <NavBar />
+        </div>
+        <div>
         </div>
         <div>
         <Grid columns='equal' className="collabPageGrid">
@@ -44,14 +70,15 @@ class CollaborationPage extends Component {
           </Grid.Row>
             </Grid.Column>
             <Grid.Column width={11} className="column-2">
-            <WorkTable data={this.props.collaboration} showModal={this.handleNewWorkClick}/>
-            </Grid.Column>
-            <Grid.Column width={2} className="column-3">
-            <p>3</p>
+            <Button id='add-work' onClick={()=>this.handleNewWorkClick()}>Add New Work</Button>
+            {this.props.collaboration.works.map((work => {
+              return(<WorkTable data={work} showModal={this.handleNewTaskClick}/>)
+            }))}
             </Grid.Column>
         </Grid>
         </div>
-        {this.state.showNewWork ? <NewWorkModal showModal={this.state.showNewWork} closeModal={this.close}/> : null}
+        {this.state.showNewWork ? <NewWorkModal showModal={this.state.showNewWork} closeModal={this.close} data={this.props.collaboration}/> : null}
+        {this.state.showNewTask ? <NewTaskModal data={this.state.current} showModal={this.state.showNewTask} closeModal={this.close}/> : null}
       </div>
     )
   }
@@ -63,4 +90,10 @@ return {
 };
 };
 
-export default withRouter(connect(mapStateToProps)(CollaborationPage));
+const mapDispatchToProps = dispatch => {
+  return {
+    setCurrentCollab: (id)=>{dispatch(setCurrentCollab(id))}
+  }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(CollaborationPage));
