@@ -22,14 +22,14 @@ class ProfileCard extends Component {
         <Card.Description>
           <h3>{this.props.email}</h3>
           <h3>{this.props.bio}</h3>
+          <h3>Skills: </h3>
+          <ul>
+            {this.props.data.skills.map((skill=>{
+              return(<li>{skill.skill_name}</li>)
+            }))}
+          </ul>
           <h3>Collaborations: {this.props.collabs.length}</h3>
           <div>
-          <h3>Active Collaborations:</h3>
-          <ul>
-          {this.props.activeCollabs.map((obj => {
-            return(<li>{obj.name}</li>)
-          }))}
-          </ul>
           </div>
         </Card.Description>
       </Card.Content >

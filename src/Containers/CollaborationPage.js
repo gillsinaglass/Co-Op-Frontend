@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import NavBar from '../Components/NavBar';
 import { connect } from 'react-redux'
-import { Grid, Segment, Image, Button, Sticky } from 'semantic-ui-react'
+import { Grid, Segment, Image, Button, Container} from 'semantic-ui-react'
 import CollabTeam from '../Components/CollabTeam'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Link} from 'react-router-dom'
 import {setCurrentCollab} from '../redux/actions/currentCollab'
 import WorkTable from './WorkTable'
 import NewWorkModal from '../Components/NewWorkModal'
@@ -72,11 +72,12 @@ class CollaborationPage extends Component {
         </div>
         <div>
         <Grid columns='equal' className="collabPageGrid">
-          <Grid.Column width={3} className="column-1" textAlign="center" style={{padding: 20 + 'px'}}>
           <Grid.Row>
+            <Grid.Column width={7} textAlign="left" style={{padding: 20 + 'px'}}>
             <h1>{this.props.collaboration.name}</h1>
-            <h2>{this.props.collaboration.description}</h2>
+            </Grid.Column>
           </Grid.Row>
+          <Grid.Column width={3} className="column-1" textAlign="center" style={{padding: 20 + 'px'}}>
           <Grid.Row>
           <CollabTeam data={this.props.collaboration.users_uniq}/>
           </Grid.Row>

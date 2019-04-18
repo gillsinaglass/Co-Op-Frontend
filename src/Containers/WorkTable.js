@@ -70,7 +70,7 @@ class WorkTable extends Component {
   render(){
     return this.props.user.id===undefined ? "hello" : (
       <div>
-      <Table sortable celled structured>
+      <Table color={"purple"}sortable celled structured>
         <Table.Header>
           <Table.Row>
           <Table.HeaderCell rowSpan='1'>{this.state.work.work_title}</Table.HeaderCell>

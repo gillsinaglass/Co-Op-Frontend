@@ -34,16 +34,16 @@ class DiscoverPage extends Component {
       <div>
         <NavBar />
       </div>
+      <div><h1>Explore Other Projects</h1></div>
         <Grid celled>
           <Grid.Row>
             <Grid.Row>
-              <NewCollabCard />
-            </Grid.Row>
             <Card.Group relaxed="very">
               {this.props.collaborations.map((collab => {
                 return(<HighlightCard data={collab} handleCardClick={this.handleProjectCardClick}/>)
               }))}
             </Card.Group>
+            </Grid.Row>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={3}>

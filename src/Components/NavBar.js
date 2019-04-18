@@ -4,7 +4,7 @@ import { Link, NavLink, withRouter } from "react-router-dom";
 
 const Navbar = () => {
   return(
-    <div className="ui inverted purple menu">
+    <div className="ui inverted purple menu" id="navBar">
       <Link to="/" className="item">
         <h2 className="ui header">
           <i className="home icon"></i>

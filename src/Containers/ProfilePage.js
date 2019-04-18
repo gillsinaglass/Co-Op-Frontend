@@ -5,7 +5,7 @@ import ProfileCard from "../Components/ProfileCard";
 import CoverImg from "../Components/CoverImage"
 import ProfileCollab from "./ProfileCollabCont"
 import { connect } from 'react-redux'
-import { Grid, Segment, Tab, Table} from 'semantic-ui-react'
+import { Grid, Segment, Tab, Table, Sticky} from 'semantic-ui-react'
 import ProjectModal from '../Components/ProjectModal'
 import ProfileWorksCont from './ProfileWorksCont'
 import WorkModal from '../Components/WorkModel'
@@ -85,9 +85,9 @@ class ProfilePage extends Component {
                   <Grid.Column width={2}>
                     <Segment><ProfileCard data={this.props.user} showModal={this.handleProfileCardClick}/></Segment>
                   </Grid.Column>
-                  <Grid.Column width={10}>
+                  <Grid.Column width={14}>
                 <Tab menu={{pointing: true}} panes={[{menuItem:'Your Collabs', render:()=><Tab.Pane><Segment><ProfileCollab showModal={this.handleProjectCardClick} showCollabModal={this.handleCollabCardClick}/></Segment></Tab.Pane>},
-                                                    { menuItem: 'Tab 2', render: () => <Tab.Pane>
+                                                    { menuItem: 'Your Tasks', render: () => <Tab.Pane>
                                                     <Table sortable celled structured>
                                                       <Table.Header>
                                                         <Table.Row>
@@ -103,8 +103,6 @@ class ProfilePage extends Component {
                                                       return(<MyTaskTable task={task}/>)
                                                     }))}</Table></Tab.Pane> }]}/>
                   </Grid.Column>
-                  <Grid.Column>
-                  </Grid.Column >
                 </Grid.Row>
               </Grid>
               {this.state.showProjectModal ? <ProjectModal showModal={this.state.showProjectModal} data={this.state.current} closeModal={this.close}/> : null}
