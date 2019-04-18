@@ -5,7 +5,7 @@ import ProfileCard from "../Components/ProfileCard";
 import CoverImg from "../Components/CoverImage"
 import ProfileCollab from "./ProfileCollabCont"
 import { connect } from 'react-redux'
-import { Grid, Segment } from 'semantic-ui-react'
+import { Grid, Segment, Tab} from 'semantic-ui-react'
 import ProjectModal from '../Components/ProjectModal'
 import ProfileWorksCont from './ProfileWorksCont'
 import WorkModal from '../Components/WorkModel'
@@ -13,7 +13,8 @@ import NewCollabModal from '../Components/NewCollabModal'
 import EditProfileModal from '../Components/EditProfileModal'
 import {setCurrentCollab} from '../redux/actions/currentCollab'
 import {withRouter} from 'react-router-dom'
-import MyTasksTable from './MyTasksTable'
+import MyTaskTable from '../Components/MyTaskTable'
+import WorkTable from './WorkTable'
 
 class ProfilePage extends Component {
   constructor(){
@@ -78,11 +79,14 @@ class ProfilePage extends Component {
                   <Grid.Column width={2}>
                     <Segment><ProfileCard data={this.props.user} showModal={this.handleProfileCardClick}/></Segment>
                   </Grid.Column>
-                  <Grid.Column >
-                    <Segment><ProfileCollab showModal={this.handleProjectCardClick} showCollabModal={this.handleCollabCardClick}/></Segment>
-                    <Grid.Row>
-                    </Grid.Row>
+                  <Grid.Column width={10}>
+                <Tab menu={{pointing: true}} panes={[{menuItem:'Your Collabs', render:()=><Tab.Pane><Segment><ProfileCollab showModal={this.handleProjectCardClick} showCollabModal={this.handleCollabCardClick}/></Segment></Tab.Pane>},
+                                                    { menuItem: 'Tab 2', render: () => <Tab.Pane>{this.props.user.tasks.map((task=>{
+                                                      return(<MyTaskTable task={task}/>)
+                                                    }))}</Tab.Pane> }]}/>
                   </Grid.Column>
+                  <Grid.Column>
+                  </Grid.Column >
                 </Grid.Row>
               </Grid>
               {this.state.showProjectModal ? <ProjectModal showModal={this.state.showProjectModal} data={this.state.current} closeModal={this.close}/> : null}
