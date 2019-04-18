@@ -5,7 +5,7 @@ import ProfileCard from "../Components/ProfileCard";
 import CoverImg from "../Components/CoverImage"
 import ProfileCollab from "./ProfileCollabCont"
 import { connect } from 'react-redux'
-import { Grid, Segment, Tab} from 'semantic-ui-react'
+import { Grid, Segment, Tab, Table} from 'semantic-ui-react'
 import ProjectModal from '../Components/ProjectModal'
 import ProfileWorksCont from './ProfileWorksCont'
 import WorkModal from '../Components/WorkModel'
@@ -15,6 +15,7 @@ import {setCurrentCollab} from '../redux/actions/currentCollab'
 import {withRouter} from 'react-router-dom'
 import MyTaskTable from '../Components/MyTaskTable'
 import WorkTable from './WorkTable'
+import {getUser} from '../redux/actions/user'
 
 class ProfilePage extends Component {
   constructor(){
@@ -64,6 +65,11 @@ class ProfilePage extends Component {
       current: null
     })
   }
+  componentDidUpdate(prevProps, prevState) {
+  // Typical usage (don't forget to compare props):
+  if (this.state.showCollabModal !== prevState.showCollabModal) {
+  this.props.getUser(1) }
+}
   render() {
     return (
       <div>
@@ -81,9 +87,21 @@ class ProfilePage extends Component {
                   </Grid.Column>
                   <Grid.Column width={10}>
                 <Tab menu={{pointing: true}} panes={[{menuItem:'Your Collabs', render:()=><Tab.Pane><Segment><ProfileCollab showModal={this.handleProjectCardClick} showCollabModal={this.handleCollabCardClick}/></Segment></Tab.Pane>},
-                                                    { menuItem: 'Tab 2', render: () => <Tab.Pane>{this.props.user.tasks.map((task=>{
+                                                    { menuItem: 'Tab 2', render: () => <Tab.Pane>
+                                                    <Table sortable celled structured>
+                                                      <Table.Header>
+                                                        <Table.Row>
+                                                          <Table.HeaderCell rowSpan='1'>Description</Table.HeaderCell>
+                                                          <Table.HeaderCell rowSpan='1'>Status</Table.HeaderCell>
+                                                          <Table.HeaderCell rowSpan='1'>Priority</Table.HeaderCell>
+                                                          <Table.HeaderCell rowSpan='1'>Estimated Time</Table.HeaderCell>
+                                                          <Table.HeaderCell rowSpan='2'>Delivery Schedule</Table.HeaderCell>
+                                                        </Table.Row>
+                                                        <Table.Row>
+                                                        </Table.Row>
+                                                      </Table.Header>{this.props.user.tasks.map((task=>{
                                                       return(<MyTaskTable task={task}/>)
-                                                    }))}</Tab.Pane> }]}/>
+                                                    }))}</Table></Tab.Pane> }]}/>
                   </Grid.Column>
                   <Grid.Column>
                   </Grid.Column >
@@ -102,7 +120,8 @@ const mapStateToProps = state =>({
     user: state.user
   })
 const mapDispatchToProps = {
-    setCurrentCollab
+    setCurrentCollab,
+    getUser
   }
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfilePage))

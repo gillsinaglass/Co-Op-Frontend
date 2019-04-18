@@ -7,18 +7,6 @@ import ProgressBar from './ProgressBar'
 class MyTaskTable extends Component {
   render(){
     return(
-      <Table sortable celled structured>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell rowSpan='1'>Description</Table.HeaderCell>
-            <Table.HeaderCell rowSpan='1'>Status</Table.HeaderCell>
-            <Table.HeaderCell rowSpan='1'>Priority</Table.HeaderCell>
-            <Table.HeaderCell rowSpan='1'>Estimated Time</Table.HeaderCell>
-            <Table.HeaderCell rowSpan='2'>Delivery Schedule</Table.HeaderCell>
-          </Table.Row>
-          <Table.Row>
-          </Table.Row>
-        </Table.Header>
         <Table.Body>
             <Table.Row>
               <Table.Cell selectable textAlign='center'>{this.props.task.description}</Table.Cell>
@@ -35,7 +23,6 @@ class MyTaskTable extends Component {
               <Table.Cell selectable textAlign='center'><ProgressBar data={this.props.task}/></Table.Cell>
             </Table.Row>
       </Table.Body>
-    </Table>
 )
 }
 }
