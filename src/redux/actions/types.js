@@ -16,3 +16,4 @@ export const CURRENT_COLLAB = "CURRENT_COLLAB"
 //tasks
 export const POST_TASK = "POST_TASK"
 export const GET_TASKS = "GET_TASKS"
+export const PATCH_TASK = "PATCH_TASKS"

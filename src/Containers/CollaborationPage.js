@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import NavBar from '../Components/NavBar';
 import { connect } from 'react-redux'
-import { Grid, Segment, Image, Button } from 'semantic-ui-react'
+import { Grid, Segment, Image, Button, Sticky } from 'semantic-ui-react'
 import CollabTeam from '../Components/CollabTeam'
 import {withRouter} from 'react-router-dom'
 import {setCurrentCollab} from '../redux/actions/currentCollab'
@@ -10,6 +10,8 @@ import NewWorkModal from '../Components/NewWorkModal'
 import NewTaskModal from '../Components/NewTaskModal'
 import AddUserToCollabModal from '../Components/AddUserToCollabModal'
 import {initialCollab} from '../initialCollab'
+import homePage from './homePage'
+import EditTaskModal from '../Components/EditTaskModal'
 
 
 class CollaborationPage extends Component {
@@ -18,6 +20,7 @@ class CollaborationPage extends Component {
     this.state={
       showNewWork: false,
       showNewTask: false,
+      showPatchTask: false,
       current: null,
       collab: initialCollab
     }
@@ -33,9 +36,9 @@ class CollaborationPage extends Component {
       current: data
     })
   }
-  handleAddUserToTaskClick = (data) => {
+  handlePatchTaskClick = (data) => {
     this.setState({
-      showAddUser: true,
+      showPatchTask: true,
       current: data
     })
   }
@@ -43,6 +46,7 @@ class CollaborationPage extends Component {
     this.setState({
       showNewWork: false,
       showNewTask: false,
+      showPatchTask: false,
     })
   }
 
@@ -53,7 +57,7 @@ class CollaborationPage extends Component {
 
   componentDidUpdate(prevProps, prevState) {
   // Typical usage (don't forget to compare props):
-  if (this.state.showNewTask !== prevState.showNewTask || this.state.showNewWork !== prevState.showNewWork) {
+  if (this.state.showNewTask !== prevState.showNewTask || this.state.showNewWork !== prevState.showNewWork || this.state.showPatchTask !== prevState.showPatchTask) {
     let id = parseInt(this.props.match.params.collaborationId);
     this.props.setCurrentCollab(id); }
 
@@ -80,11 +84,12 @@ class CollaborationPage extends Component {
             <Grid.Column width={11} className="column-2">
             <Button id='add-work' onClick={()=>this.handleNewWorkClick()}>Add New Work</Button>
             {this.props.collaboration.works.map((work => {
-              return(<WorkTable data={work} showModal={this.handleNewTaskClick} showAddUserModal={this.handleAddUserToTaskClick}/>)
+              return(<WorkTable data={work} users={work.users_unique} showModal={this.handleNewTaskClick} showTaskModal={this.handlePatchTaskClick}/>)
             }))}
             </Grid.Column>
         </Grid>
         </div>
+        {this.state.showPatchTask ? <EditTaskModal data={this.state.current} showModal={this.state.showPatchTask} closeModal={this.close}/> : null}
         {this.state.showNewWork ? <NewWorkModal showModal={this.state.showNewWork} closeModal={this.close} data={this.props.collaboration}/> : null}
         {this.state.showNewTask ? <NewTaskModal data={this.state.current} showModal={this.state.showNewTask} closeModal={this.close}/> : null}
       </div>

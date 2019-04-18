@@ -15,6 +15,7 @@ import {getCollabs} from './redux/actions/collab'
 import {setCurrentCollab} from './redux/actions/currentCollab'
 import {getAllUsers} from './redux/actions/users'
 import {getAllTasks} from './redux/actions/task'
+import HomePage from './Containers/homePage'
 
 class App extends Component {
 
@@ -32,6 +33,7 @@ class App extends Component {
         <Route path= "/login" component={Login} />
         <Route path= "/signup" component={SignUp} />
         {this.props.user.id === undefined? "hello" :<Switch>
+          <Route exact path="/" component={HomePage}/>
           <Route exact path= "/profile" component={ProfilePage} />
           <Route path= "/discover" component={DiscoverPage} />
           <Route path= "/collaborations/:collaborationId" component={CollaborationPage} />
@@ -43,10 +45,10 @@ class App extends Component {
 
 const mapDispatchToProps = {
     getUser,
+    getAllUsers,
     getWorks,
     getCollabs,
     setCurrentCollab,
-    getAllUsers,
     getAllTasks
   }
 

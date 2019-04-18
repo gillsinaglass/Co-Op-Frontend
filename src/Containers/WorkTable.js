@@ -2,23 +2,24 @@ import React, {Component} from 'react'
 import _ from 'lodash';
 import { Icon, Table, Button, Form, Image } from 'semantic-ui-react'
 import {connect} from 'react-redux'
+import ProgressBar from '../Components/ProgressBar'
+
 
 class WorkTable extends Component {
   constructor(props){
     super(props)
     this.state ={
       work: this.props.data,
+      users: this.props.users,
+      task: null
     }
   }
-  setUser = (task) =>{
-    return(<Button>Hello</Button>)
-  }
-
-  schedule = (task) => {
-    if (task.updated_at !== task.created_at){
-      return
+  getUser = (task) =>{
+    let x = this.state.users
+    debugger
+    let a = x.find(user => user.id === task.user_id)
+    return a.profile_picture
     }
-  }
 
   completed=(task)=>{
     switch (task.status) {
@@ -45,10 +46,31 @@ class WorkTable extends Component {
         return null;
     }
   }
+  buttonColor=(task)=>{
+    switch (task.status) {
+      case 'Not Started':
+        return "red";
+      case 'Pending':
+        return "yellow";
+      case 'Done':
+        return "green";
+      default:
+        return null;
+    }
+  }
+
+  changeStatus=(task)=>{
+    if (task.status === 'Pending'){
+      console.log('Pending')
+    } else if (task.status === 'Not Started') {
+      console.log('Not Started')
+    } else {console.log('Done')}
+  }
+
   render(){
-    return(
+    return this.props.user.id===undefined ? "hello" : (
       <div>
-      <Table celled structured>
+      <Table sortable celled structured>
         <Table.Header>
           <Table.Row>
           <Table.HeaderCell rowSpan='1'>{this.state.work.work_title}</Table.HeaderCell>
@@ -73,13 +95,13 @@ class WorkTable extends Component {
           var comp = new Date(task.updated_at)
           return(
             <Table.Row>
-              <Table.Cell>{this.setUser(task)}</Table.Cell>
+              <Table.Cell><Image src={this.getUser(task)} size="mini"/></Table.Cell>
               <Table.Cell selectable textAlign='center'>{task.description}</Table.Cell>
               <Table.Cell selectable
               positive={task.status === 'Done' ? true : false}
               negative={task.status === 'Not Started' ? true : false}
               warning={task.status === 'Pending' ? true : false}
-              textAlign='center'>{task.status}</Table.Cell>
+              textAlign='center'><Button fluid onClick={()=>this.props.showTaskModal(task)} color={this.buttonColor(task)}>{task.status}</Button></Table.Cell>
               <Table.Cell selectable
               positive={task.priority === 'Low' ? true : false}
               negative={task.priority === 'High' ? true : false}
@@ -87,7 +109,7 @@ class WorkTable extends Component {
               <Table.Cell selectable textAlign='center'>{task.estimated_time} Day(s)</Table.Cell>
               <Table.Cell selectable textAlign='center'>{date.toDateString()}</Table.Cell>
               <Table.Cell selectable textAlign='center'>{this.completed(task)}</Table.Cell>
-              <Table.Cell selectable textAlign='center'>h</Table.Cell>
+              <Table.Cell selectable textAlign='center'><ProgressBar data={task}/></Table.Cell>
             </Table.Row>
           )
         }))}
@@ -113,7 +135,8 @@ class WorkTable extends Component {
 }
 const mapStateToProps = (state, ownProps) => {
 return {
-  users: state.users
+  users: state.users,
+  user: state.user
 };
 };
 

@@ -1,4 +1,4 @@
-import {POST_TASK, GET_TASKS} from './types'
+import {POST_TASK, GET_TASKS, PATCH_TASK} from './types'
 const URL = `http://localhost:3001/tasks`
 
 function getAllTasks(){
@@ -29,4 +29,22 @@ function postTask(formdata){
   }
 }
 
-export {postTask, getAllTasks};
+function patchTask(data){
+  console.log("hey")
+  return (dispatch) => {
+    fetch(`${URL}/${data.id}`, {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+    }
+    )
+    .then(res => res.json())
+    .then(task => {
+      dispatch({type: PATCH_TASK, payload: task})
+    })
+  }
+}
+
+export {postTask, getAllTasks, patchTask};

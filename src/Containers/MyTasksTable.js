@@ -27,7 +27,7 @@ class MyTasksTable extends Component {
     {this.props.highlights.map((collab=>{
       return(<Table.Row>
         <MyTaskBody collab={collab}/>
-      
+
       </Table.Row>)
       }))}
     </Table.Body>
