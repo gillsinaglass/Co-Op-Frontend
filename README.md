@@ -1,4 +1,15 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# This is Co-Op
+
+### Co-Op is a tool for open-source project owners to manage teams of freelance designers and developers. 
++ Utilizes Ruby on Rails to create and host projects, and build teams of other users around project tasks.  
++ Task and subtask management system following the Agile methodology
+++ Project creator can  monitor team member's progress, assign team members tasks, and track time, priority, and status
++ Applies React and Redux for a responsive user experience managing project tasks
++ Capitalizes on Rail’s custom serializers to create a RESTful JSON API. 
+
+## Samples
+ 
+### Co-Op Backend: https://github.com/gillsinaglass/Co-Op-Backend
 
 ## Available Scripts
 
