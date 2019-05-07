@@ -8,6 +8,14 @@
 + Capitalizes on Rail’s custom serializers to create a RESTful JSON API. 
 
 ## Samples
+#### User Auth - Basic info and their current collaborations
+![Login](https://user-images.githubusercontent.com/37309520/57334395-991ebf80-70ed-11e9-90c3-9246575a03a4.gif)
+
+#### Task Creation
+![Task Creation](https://user-images.githubusercontent.com/37309520/57334757-a4261f80-70ee-11e9-9223-b66b35d04d04.gif)
++ Users are able to create Works, and each Work can contain Tasks. 
++ Tasks are assigned to users, given a title, a description, a status, and a priority. 
++ Task progress is able to be incremented if status is "Pending"
  
 ### Co-Op Backend: https://github.com/gillsinaglass/Co-Op-Backend
 
